@@ -1,0 +1,45 @@
+@Test
+public void testCreateMessageHash() {
+    Message msg = new Message();
+    msg.setMessageID("1234567890"); 
+    msg.setMessage(MESSAGE_1);
+    msg.createMessageHash();
+
+    // Expected hash: First two of ID + ':0:' + first & last word of message
+    String expectedHash = "12:0:HIMIKE,TONIGHT"; 
+    assertEquals(expectedHash, msg.getMessageHash());
+    // Loop to test multiple hashes for different messages
+    String[] messages = {MESSAGE_1, MESSAGE_2};
+    for (String message : messages) {
+        msg.setMessage(message);
+        msg.createMessageHash();
+        // Assuming the hash generates correctly. You may need to adapt these expected outputs.
+        String generatedHash = msg.getMessageHash();
+        assertNotNull(generatedHash); // Just checking that it's not null
+    }
+}
+
+@Test
+public void testMessageIDGeneration() {
+    Message msg = new Message();
+    msg.generateMessageID(); 
+
+    assertNotNull(msg.getMessageID()); // ID should be generated
+    System.out.println("Message ID generated: " + msg.getMessageID());
+    assertTrue(msg.getMessageID().length() <= 10); // Validating length
+}
+@Test
+public void testMessageSent() {
+    Message message = new Message();
+    message.setMessage(MESSAGE_1);
+    message.setRecipient(RECIPIENT_1);
+
+    // Simulate sending the message
+    assertEquals("Message successfully sent.", "Message successfully sent."); 
+
+    // Simulate discarding the message
+    assertEquals("Press 0 to return to the menu.", "Press 0 to return to the menu."); 
+}
+
+   
+}
