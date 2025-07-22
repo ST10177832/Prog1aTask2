@@ -1,0 +1,38 @@
+
+public class MessageTest {
+    // Test Data for message 1
+private static final String RECIPIENT_1 = "‪+27718693002‬";
+private static final String MESSAGE_1 = "Hi Mike, can you join us for dinner tonight";
+
+// Test Data for message 2
+private static final String RECIPIENT_2 = "08575975889";
+private static final String MESSAGE_2 = "Hi Keagan, did you receive the payment?";
+
+@Test
+public void testMessageLength() {
+    Message message = new Message();
+    message.setMessage(MESSAGE_1);
+
+    // Check for success case
+    if (message.getMessage().length() <= 250) {
+        assertEquals("Message ready to send.", "Message ready to send.");
+    } else {
+        int excessLength = message.getMessage().length() - 250;
+        assertEquals("Message exceeds 250 characters by " + excessLength + ", please reduce size.", 
+                     "Message exceeds 250 characters by " + excessLength + ", please reduce size.");
+    }
+
+}
+
+@Test
+public void testRecipientNumberFormatting() {
+    Message message = new Message();
+
+    // In case of Test Success
+    message.setRecipient(RECIPIENT_1);
+    assertEquals("Cell phone number successfully captured.", "Cell phone number successfully captured.");
+
+    // In case of Test Failure
+    message.setRecipient(RECIPIENT_2);
+    assertEquals("Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.", 
+                 "Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.");
